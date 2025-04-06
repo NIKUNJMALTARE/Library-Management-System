@@ -40,15 +40,21 @@ export default function DashboardPage() {
   const fetchBooks = async () => {
     setLoading(true)
     try {
-      // This would be replaced with your actual API endpoint
-      const response = await axios.get("/api/books", {
+      const response = await axios.get("http://localhost:5000/api/books", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-
-      // Ensure we're setting an array
-      setBooks(Array.isArray(response.data) ? response.data : [])
+  
+      // ✅ Normalize _id to id
+      const normalizedBooks = Array.isArray(response.data)
+        ? response.data.map((book) => ({
+            ...book,
+            id: book._id,
+          }))
+        : []
+  
+      setBooks(normalizedBooks)
     } catch (error) {
       console.error("Error fetching books:", error)
       toast({
@@ -56,12 +62,12 @@ export default function DashboardPage() {
         description: "Failed to fetch books.",
         variant: "destructive",
       })
-      // Set empty array on error
       setBooks([])
     } finally {
       setLoading(false)
     }
   }
+  
 
   const handleLogout = () => {
     localStorage.removeItem("user")
@@ -76,7 +82,7 @@ export default function DashboardPage() {
   const handleAddBook = async (book: Omit<Book, "id">) => {
     try {
       // This would be replaced with your actual API endpoint
-      const response = await axios.post("/api/books", book, {
+      const response = await axios.post("http://localhost:5000/api/books", book, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -104,7 +110,7 @@ export default function DashboardPage() {
   const handleUpdateBook = async (updatedBook: Book) => {
     try {
       // This would be replaced with your actual API endpoint
-      await axios.put(`/api/books/${updatedBook.id}`, updatedBook, {
+      await axios.put(`http://localhost:5000/api/books/${updatedBook.id}`, updatedBook, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -129,7 +135,7 @@ export default function DashboardPage() {
   const handleDeleteBook = async (id: string) => {
     try {
       // This would be replaced with your actual API endpoint
-      await axios.delete(`/api/books/${id}`, {
+      await axios.delete(`http://localhost:5000/api/books/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -174,4 +180,3 @@ export default function DashboardPage() {
     </div>
   )
 }
-

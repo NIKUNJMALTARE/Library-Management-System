@@ -27,7 +27,7 @@ export default function SignupPage() {
 
     try {
       // This would be replaced with your actual API endpoint
-      const response = await axios.post("/api/auth/signup", {
+      const response = await axios.post("http://localhost:5000/api/auth/register", {
         name,
         email,
         password,
@@ -43,7 +43,7 @@ export default function SignupPage() {
       localStorage.setItem("token", response.data.token)
 
       // Redirect to dashboard
-      router.push("/dashboard")
+      router.push("/login")
     } catch (error) {
       console.error("Signup error:", error)
       toast({

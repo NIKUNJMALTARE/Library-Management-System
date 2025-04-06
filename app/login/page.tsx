@@ -26,7 +26,7 @@ export default function LoginPage() {
 
     try {
       // This would be replaced with your actual API endpoint
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
         email,
         password,
       })

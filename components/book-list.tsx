@@ -54,7 +54,7 @@ export default function BookList({ books = [], loading, onUpdate, onDelete }: Bo
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {booksArray.map((book) => (
-          <Card key={book.id}>
+          <Card key={String(book.id)}>
             <CardHeader>
               <CardTitle>{book.title}</CardTitle>
             </CardHeader>
