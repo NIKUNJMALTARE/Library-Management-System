@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
 
     try {
       // This would be replaced with your actual API endpoint
-      await axios.post("/api/auth/forgot-password", { email })
+      await axios.post("http://localhost:5000/api/forgot-password", { email })
       setSubmitted(true)
       toast({
         title: "Reset link sent",
